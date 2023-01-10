@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Todo } from '../models/todo';
@@ -11,11 +12,7 @@ export class TodoListService {
   public todoList$: Observable<Todo[]> = this.dataSource.asObservable();
 
   constructor() {
-    const localStorageTodos = localStorage.getItem('todoList');
-    if (localStorageTodos) {
-      this.todos = JSON.parse(localStorageTodos);
-      this.dataSource.next(this.todos);
-    }
+    this.getState();
   }
 
   public addTodo(description: string): void {
@@ -25,7 +22,7 @@ export class TodoListService {
     }
     this.todos.push({ id: newId, description: description, done: false });
     this.dataSource.next(this.todos)
-    localStorage.setItem('todoList', JSON.stringify(this.todos));
+    this.saveState();
   }
 
   public deleteTodoById(id: number): void {
@@ -33,7 +30,7 @@ export class TodoListService {
     if (index >= 0) {
       this.todos.splice(index, 1);
     }
-    localStorage.setItem('todoList', this.todos.toString());
+    this.saveState();
   }
 
   public updateTodoById(id: number, description: string): void {
@@ -41,6 +38,23 @@ export class TodoListService {
     if (index >= 0) {
       this.todos[index].description = description;
     }
-    localStorage.setItem('todoList', this.todos.toString());
+    this.saveState();
+  }
+
+  public reOrderTodoList(event: CdkDragDrop<Todo[]>): void {
+    moveItemInArray(this.todos, event.previousIndex, event.currentIndex);
+    this.saveState();
+  }
+
+  private saveState(): void {
+    localStorage.setItem('todoList', JSON.stringify(this.todos));
+  }
+
+  private getState(): void {
+    const localStorageTodos = localStorage.getItem('todoList');
+    if (localStorageTodos) {
+      this.todos = JSON.parse(localStorageTodos);
+      this.dataSource.next(this.todos);
+    }
   }
 }
