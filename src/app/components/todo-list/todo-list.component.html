@@ -19,7 +19,7 @@
     <button mat-mini-fab color="accent" aria-label="edit a task" class="col-2">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-mini-fab color="warn" aria-label="delete a task" class="col-2">
+    <button mat-mini-fab color="warn" aria-label="delete a task" class="col-2" (click)="deleteTodo(todo)">
       <mat-icon>delete</mat-icon>
     </button>
   </div>

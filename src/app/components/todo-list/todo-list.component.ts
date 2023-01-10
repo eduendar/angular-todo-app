@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { Todo } from 'src/app/models/todo';
 import { TodoListService } from 'src/app/services/todo-list.service';
 
@@ -18,5 +17,9 @@ export class TodoListComponent {
       this.service.addTodo(this.todoDescription);
       this.todoDescription = '';
     }
+  }
+
+  public deleteTodo(todo: Todo): void {
+    this.service.deleteTodoById(todo.id);
   }
 }
