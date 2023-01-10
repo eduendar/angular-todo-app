@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, inject } from '@angular/core';
 import { Todo } from 'src/app/models/todo';
 import { TodoListService } from 'src/app/services/todo-list.service';
@@ -35,5 +36,10 @@ export class TodoListComponent {
     this.todoDescription = todo.description;
     this.isEditActive = true;
     this.todoSelected = todo;
+  }
+
+  drop(event: CdkDragDrop<Todo[]>) {
+    //moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+    this.service.reOrderTodoList(event);
   }
 }
