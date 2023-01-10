@@ -11,6 +11,8 @@ export class TodoListComponent {
   private service: TodoListService = inject(TodoListService);
   public todoList$ = this.service.todoList$;
   public todoDescription = '';
+  public isEditActive = false;
+  private todoSelected!: Todo;
 
   public addTodo(): void {
     if (this.todoDescription) {
@@ -19,7 +21,19 @@ export class TodoListComponent {
     }
   }
 
+  public updateTodo(): void {
+    this.service.updateTodoById(this.todoSelected.id, this.todoDescription);
+    this.isEditActive = false;
+    this.todoDescription = '';
+  }
+
   public deleteTodo(todo: Todo): void {
     this.service.deleteTodoById(todo.id);
+  }
+
+  public editTodo(todo: Todo): void {
+    this.todoDescription = todo.description;
+    this.isEditActive = true;
+    this.todoSelected = todo;
   }
 }
