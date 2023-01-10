@@ -10,6 +10,14 @@ export class TodoListService {
   private dataSource: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
   public todoList$: Observable<Todo[]> = this.dataSource.asObservable();
 
+  constructor() {
+    const localStorageTodos = localStorage.getItem('todoList');
+    if (localStorageTodos) {
+      this.todos = JSON.parse(localStorageTodos);
+      this.dataSource.next(this.todos);
+    }
+  }
+
   public addTodo(description: string): void {
     let newId = 0;
     if (this.todos.length) {
@@ -17,6 +25,7 @@ export class TodoListService {
     }
     this.todos.push({ id: newId, description: description, done: false });
     this.dataSource.next(this.todos)
+    localStorage.setItem('todoList', JSON.stringify(this.todos));
   }
 
   public deleteTodoById(id: number): void {
@@ -24,6 +33,7 @@ export class TodoListService {
     if (index >= 0) {
       this.todos.splice(index, 1);
     }
+    localStorage.setItem('todoList', this.todos.toString());
   }
 
   public updateTodoById(id: number, description: string): void {
@@ -31,5 +41,6 @@ export class TodoListService {
     if (index >= 0) {
       this.todos[index].description = description;
     }
+    localStorage.setItem('todoList', this.todos.toString());
   }
 }
