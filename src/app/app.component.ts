@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, inject, Renderer2 } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-todo-app';
+  private document: Document = inject(DOCUMENT);
+  private renderer: Renderer2 = inject(Renderer2);
+
+  onDarkModeSwitched({ checked }: MatSlideToggleChange) {
+    const hostClass = checked ? 'theme-dark' : 'theme-light';
+    this.renderer.setAttribute(this.document.body, 'class', hostClass);
+ }
 }
