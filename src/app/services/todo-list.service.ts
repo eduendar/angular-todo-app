@@ -8,7 +8,7 @@ import { Todo } from '../models/todo';
 export class TodoListService {
   private todos: Todo[] = [];
   private dataSource: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
-  public allTodos: Observable<Todo[]> = this.dataSource.asObservable();
+  public todoList$: Observable<Todo[]> = this.dataSource.asObservable();
 
   public addTodo(description: string): void {
     let newId = 0;

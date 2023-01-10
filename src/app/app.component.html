@@ -1,13 +1,10 @@
 <mat-toolbar class="op-header">
-  <strong>Zeit</strong>table
-  <span class="toolbar-spacer"></span>
-  <span>
-     <mat-slide-toggle (change)="onDarkModeSwitched($event)">Dark Mode</mat-slide-toggle>
-  </span>
+  <mat-slide-toggle (change)="onDarkModeSwitched($event)"
+    >Dark Mode</mat-slide-toggle
+  >
 </mat-toolbar>
-<mat-sidenav-container style="height: 100%;">
+<mat-sidenav-container style="height: 100%">
   <mat-sidenav-content class="main-content">
     <app-todo-list></app-todo-list>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
