@@ -5,19 +5,9 @@
      <mat-slide-toggle (change)="onDarkModeSwitched($event)">Dark Mode</mat-slide-toggle>
   </span>
 </mat-toolbar>
-<mat-sidenav-container>
+<mat-sidenav-container style="height: 100%;">
   <mat-sidenav-content class="main-content">
-    <nav>
-      <ul>
-        <li>Todo Liste</li>
-        <li>Dashboard</li>
-      </ul>
-    </nav>
-
-    <main>
-
-      Test
-    </main>
+    <app-todo-list></app-todo-list>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
