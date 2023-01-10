@@ -1,22 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
-@import '@angular/material/theming';
+@use '@angular/material' as mat;
 
-@include mat-core();
+@include mat.core();
 
-$mat-theming-primary: mat-palette($mat-indigo);
-$mat-theming-accent: mat-palette($mat-indigo, A200, A100, A400);
-$mat-theming-warm: mat-palette($mat-red);
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$my-warm: mat.define-palette(mat.$red-palette);
 
-$mat-theming-theme: mat-light-theme($mat-theming-primary, $mat-theming-accent, $mat-theming-warm);
-$mat-theming-theme-dark: mat-dark-theme($mat-theming-primary, $mat-theming-accent, $mat-theming-warm);
+// Define a dark theme
+$dark-theme: mat.define-dark-theme((
+ color: (
+   primary: mat.define-palette(mat.$pink-palette),
+   accent: mat.define-palette(mat.$blue-grey-palette),
+ ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
 
 .theme-dark {
-   @include angular-material-theme($mat-theming-theme-dark);
-}
-
-.theme-light {
-   @include angular-material-theme($mat-theming-theme);
+  @include mat.all-component-colors($dark-theme);
+  @include mat.strong-focus-indicators-theme($dark-theme);
 }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
