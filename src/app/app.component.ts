@@ -9,6 +9,9 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 })
 export class AppComponent {
   title = 'angular-todo-app';
+  
+  dynamic incjection ist mit v15 reingekommen, da haben sie vielleich die klassische Art erwartet
+  
   private document: Document = inject(DOCUMENT);
   private renderer: Renderer2 = inject(Renderer2);
 
